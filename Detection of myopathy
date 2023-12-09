@@ -1,0 +1,35 @@
+% Load EMG signals
+healthy_signal = load('emg_healthy.txt');
+myopathy_signal = load('emg_myopathy.txt');
+
+% Define features (mean and standard deviation)
+healthy_features = [mean(healthy_signal), std(healthy_signal)];
+myopathy_features = [mean(myopathy_signal), std(healthy_signal)];
+
+% Define a simple classification rule (based on mean)
+is_myopathic = @(features) features(1) > 5;
+
+% Predict and display results
+healthy_prediction = is_myopathic(healthy_features);
+myopathy_prediction = is_myopathic(myopathy_features);
+
+% Display graphs
+figure;
+plot(healthy_signal);
+title('Healthy EMG Signal');
+
+figure;
+plot(myopathy_signal);
+title('Myopathy EMG Signal');
+
+if healthy_prediction
+    disp('The healthy EMG signal indicates healthy.');
+else
+    disp('The healthy EMG signal is normal.');
+end
+
+if myopathy_prediction
+    disp('The myopathy EMG signal indicates myopathy.');
+else
+    disp('The myopathy EMG signal is normal.');
+end
