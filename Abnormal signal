@@ -1,0 +1,19 @@
+% Generate a synthetic ECG signal with arrhythmia
+
+fs = 1000; % Sampling frequency in Hz
+
+duration = 10; % Duration in seconds
+
+t = 0:1/fs:duration-1/fs; % Time vector
+
+baseline = 0.2 * sin(2 * pi * 0.5 * t);
+
+r_peaks = 1.5 * exp(-0.2 * (t - 4).^2) + 0.5 * exp(-0.2 * (t - 8).^2);
+
+% Introduce random noise for arrhythmia (modify as needed)
+
+arrhythmia_signal = baseline + r_peaks + 0.1 * randn(size(t));
+
+% Save the ECG data with arrhythmia to a .mat file
+
+save('ecg_data.mat', 'arrhythmia_signal')
