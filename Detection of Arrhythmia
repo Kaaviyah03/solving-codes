@@ -1,0 +1,89 @@
+% Load your synthetic ECG data from the saved .mat files
+
+load('ecg_data.mat'); % Load your ECG data from 'ecg_data.mat'
+
+load('normal_ecg_data.mat'); % Load normal ECG data from 
+
+'normal_ecg_data.mat'
+
+% Set the sampling frequency and the ECG leads (typically Lead II)
+
+fs = 1000; % Sample frequency in Hz
+
+lead_arrhythmia = arrhythmia_signal; % Use the correct variable name
+
+lead_normal = normal_ecg_signal; % Use the correct variable name
+
+% Define a threshold for arrhythmia detection (adjust as needed)
+
+arrhythmia_threshold = 0.2;
+
+% Define a threshold for normal signal detection (adjust as needed)
+
+normal_threshold = 0.1; % You may need to adjust this threshold
+
+% Define a function for arrhythmia detection
+
+detect_arrhythmia = @(lead, threshold) std(lead) > threshold;
+
+% Detect arrhythmia in the ECG signal with arrhythmia
+
+is_arrhythmia_arrhythmia = detect_arrhythmia(lead_arrhythmia, 
+
+arrhythmia_threshold);
+
+% Detect arrhythmia in the normal ECG signal
+is_arrhythmia_normal = detect_arrhythmia(lead_normal, 
+
+normal_threshold);
+
+ % Plot the ECG signals
+
+figure; 
+
+subplot(2, 1, 1);
+
+plot(lead_arrhythmia);
+
+xlabel('Time (s)');
+
+ylabel('ECG Amplitude');
+
+title('ECG Signal with Arrhythmia');
+
+subplot(2, 1, 2);
+
+plot(lead_normal);
+
+xlabel('Time (s)');
+
+ylabel('ECG Amplitude');
+
+title('Normal ECG Signal');
+
+% Display the classification results for the arrhythmia signal
+
+fprintf('ECG Signal with Arrhythmia:\n');
+
+if is_arrhythmia_arrhythmia
+
+ fprintf('Arrhythmia detected!\n');
+else
+
+ fprintf('No arrhythmia detected.\n');
+
+end
+
+% Display the classification results for the normal signal
+
+fprintf('\nNormal ECG Signal:\n');
+
+if is_arrhythmia_normal
+
+ fprintf('Arrhythmia not detected.\n');
+
+else
+
+ fprintf('No arrhythmia detected.\n');
+
+end
