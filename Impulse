@@ -1,0 +1,13 @@
+% Define the transfer function
+
+num = [1]; den [10.8 0.16];
+
+H = tf(num, den, 1);
+
+% Compute the impulse response
+
+n = 0:20;
+
+h = impulse (H, n);
+
+% Plot the impulse response stem(n, h, 'filled'); title('Impulse response of H(z)');
